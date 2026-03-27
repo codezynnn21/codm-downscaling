@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Zynn Beta | CODM Downscaling</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+  <div class="hero-banner">
+    <img src="assets/banner.png" alt="CODM banner" />
+    </div>
+  </div>
+
+    <header class="topbar">
+      <div>
+        <h1>Zynn Beta</h1>
+        <p class="subtitle">CODM downscaling module</p>
+      </div>
+    </header>
+
+    <section class="card info-card">
+      <h2>Command path</h2>
+      <p><code>cmd game downscale &lt;scale&gt; &lt;package&gt;</code></p>
+      <p><code>cmd device_config put game_overlay &lt;package&gt; mode=2,downscaleFactor=&lt;scale&gt;,fps=&lt;fps&gt;</code></p>
+      <small>Root WebUI runs these directly. Shizuku fallback commands are shown below for manual use.</small>
+    </section>
+
+    <section class="card panel">
+      <div class="block">
+        <h3>Target CODM Package</h3>
+        <p>Select the CODM variant you want to control.</p>
+        <div class="grid grid-3" id="packageGrid"></div>
+      </div>
+
+      <div class="block switch-row">
+        <div>
+          <h3>Auto Reapply on Launch</h3>
+          <p>When CODM comes to foreground, the service loop reapplies your selected commands.</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="autoReapply" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+
+      <div class="block">
+        <h3>Resolution Scale</h3>
+        <p>Uses Android game downscale and game_overlay.</p>
+        <div class="grid grid-5" id="resolutionGrid"></div>
+      </div>
+
+      <div class="block">
+        <h3>FPS Target</h3>
+        <p>Writes overlay fps hints for supported devices.</p>
+        <div class="grid grid-5" id="fpsGrid"></div>
+      </div>
+
+      <div class="block switch-row">
+        <div>
+          <h3>Lock Refresh</h3>
+          <p>Also writes min and peak refresh-rate system settings.</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="lockFps" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="actions actions-3">
+        <button class="btn btn-secondary" id="saveBtn">Save</button>
+        <button class="btn btn-secondary" id="resetBtn">Reset</button>
+        <button class="btn btn-primary" id="applyBtn">Apply to CODM</button>
+      </div>
+
+      <div class="terminal" id="statusBox">Status: idle</div>
+    </section>
+
+    <section class="card panel">
+      <div class="block">
+        <h3>Live Command Output</h3>
+        <p>Shows the latest script output and generated commands.</p>
+        <pre class="console" id="consoleBox">Waiting for actions...</pre>
+      </div>
+      <div class="block">
+        <h3>Shizuku Fallback Commands</h3>
+        <p>Copy these into a Shizuku shell if your WebUI bridge cannot execute directly.</p>
+        <textarea id="shizukuCmds" class="cmdbox" readonly></textarea>
+        <div class="actions single-action">
+          <button class="btn btn-secondary" id="copyCmdBtn">Copy Commands</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+  <script src="assets/app.js"></script>
+</body>
+</html>
